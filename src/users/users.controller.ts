@@ -7,6 +7,6 @@ export class UsersController {
 
     @Post('createNewUser')
     async createNewUser(@Body() CreateUser: any) {
-        return CreateUser
+        this.UserService.createNewUser(CreateUser)
     }
 }
