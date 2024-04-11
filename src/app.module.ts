@@ -3,10 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { config } from 'dotenv';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 
 config(); // Carga las variables de entorno desde el archivo .env
-
 
 @Module({
   imports: [
@@ -17,3 +16,4 @@ config(); // Carga las variables de entorno desde el archivo .env
   providers: [AppService],
 })
 export class AppModule {}
+
