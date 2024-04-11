@@ -20,8 +20,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-
-
   await app.listen(3000);
 
 
@@ -29,7 +27,7 @@ async function bootstrap() {
   console.log(`${toolcolor.yellow}* ${toolcolor.cyan} MODE               ${toolcolor.reset}: ${toolcolor.green} Dev ${toolcolor.reset}` ); 
   console.log(`${toolcolor.yellow}* ${toolcolor.cyan} IP RUNNING         ${toolcolor.reset}: ${toolcolor.red} localhost ${toolcolor.reset}` ); 
   console.log(`${toolcolor.yellow}* ${toolcolor.cyan} PATH               ${toolcolor.reset}: ${toolcolor.green} /api ${toolcolor.reset}` ); 
-  console.log(`${toolcolor.yellow}* ${toolcolor.cyan} SWAGGER NAME   ${toolcolor.reset}: ${toolcolor.magenta} localhost:3000/api ${toolcolor.reset}` );  
+  console.log(`${toolcolor.yellow}* ${toolcolor.cyan} SWAGGER NAME   ${toolcolor.reset}    : ${toolcolor.magenta} http://localhost:3000/api ${toolcolor.reset}` );  
   console.log(`${toolcolor.yellow}******************************************************${toolcolor.reset}`);
 }
 bootstrap();
