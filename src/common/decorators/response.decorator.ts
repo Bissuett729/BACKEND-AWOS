@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { applyDecorators } from "@nestjs/common";
 import { ApiResponse } from "@nestjs/swagger";
 

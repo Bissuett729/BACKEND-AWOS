@@ -11,5 +11,9 @@ export interface IUsers {
   age: number;
   email: string;
   registerDate: Date;
+  password: string;
+  groups: string[];
+  imgProfile: string;
+  phone: string;
   active: boolean;
 };

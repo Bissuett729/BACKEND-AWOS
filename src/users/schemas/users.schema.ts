@@ -5,10 +5,11 @@ export type UserDocument = HydratedDocument<Users>;
 
 @Schema()
 export class Users {
+  
   @Prop({required: true})
   name: string;
 
-  @Prop({required: true})
+  @Prop({required: false, default: null})
   age: number;
 
   @Prop({required: true})
@@ -16,6 +17,18 @@ export class Users {
 
   @Prop({required: false, default: Date.now})
   registerDate: Date;
+
+  @Prop({required: true})
+  password: string;
+  
+  @Prop({required: false, default: []})
+  groups: string[] = [];
+
+  @Prop({required: false, default: null})
+  imgProfile: string = '';
+
+  @Prop({required: false, default: null})
+  phone: string = '';
 
   @Prop({required: false, default: true})
   active: boolean = true;
