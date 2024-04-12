@@ -11,4 +11,5 @@ export interface IUsers {
   age: number;
   email: string;
   registerDate: Date;
+  active: boolean;
 };
