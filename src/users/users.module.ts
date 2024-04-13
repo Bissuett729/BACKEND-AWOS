@@ -9,6 +9,7 @@ import { AuthController } from './controllers/authentication.controller';
 import { JwtService } from '@nestjs/jwt';
 import { JwtModule } from '@nestjs/jwt';
 import { config } from 'dotenv';
+import { EventsGateway } from 'src/shared/gateway/gateway';
 
 config(); // Carga las variables de entorno desde el archivo .env
 console.log(process.env.JWT_SECRET);
@@ -24,7 +25,7 @@ console.log(process.env.JWT_SECRET);
             signOptions: { expiresIn: '30m'}
           }),
     ],
-    providers: [UsersService, AuthService, JwtService],
+    providers: [UsersService, AuthService, JwtService, EventsGateway],
     controllers: [UsersController, AuthController]
 })
 export class UsersModule {}
