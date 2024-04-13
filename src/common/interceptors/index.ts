@@ -1,0 +1,1 @@
+export { getParamInterceptor } from './getParam.interceptor'

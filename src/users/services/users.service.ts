@@ -5,10 +5,11 @@ import * as DTO from '../dto/index'
 import * as bcrypt from 'bcrypt';
 import { Users } from '../schemas/users.schema';
 import { InjectModel } from '@nestjs/mongoose';
+import { EventsGateway } from 'src/shared/gateway/gateway';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(Users.name) private _USER: Model<Users>) {}
+    constructor(@InjectModel(Users.name) private _USER: Model<Users>, private readonly _appGateway: EventsGateway,) {}
 
     async createNewUser(payload: DTO.CreateUserDto): Promise<I.IUsers> {
         return new Promise(async (resolve, reject) => {
@@ -18,16 +19,38 @@ export class UsersService {
                 const hashedPassword = await bcrypt.hash(payload.password, 10);
                 payload.password= hashedPassword
                 const newUser = new this._USER(payload);
-                const savedUser = await newUser.save();
+                const response = await newUser.save();
                 // const count = await this._USER.collection.countDocuments()
-                resolve(savedUser);
+                this._appGateway.emitEvent( 'FACTORYEXPRESS-WORKFLOW-Category-newCategory', { ok:true, data: response, msg: "Socket Success!" } );
+                resolve(response);
             } catch (error) {
                 reject(error);
             }
         });
     }
 
-    async getAllUsers(): Promise<any> {}
+    async getAllUsers(payload):Promise<any>{
+        return new Promise(async(resolve, reject)=>{
+            try {
+                const newObj: any = {};
+                if (payload._search == '_')  newObj.active = payload._active
+                else{
+                    const regex = new RegExp(payload._search, 'i');
+                    newObj['$or'] = [
+                        { name     : regex, active : payload._active },
+                    ];
+                }
+                const since = Number(payload._since || 0);
+                const limit = Number(payload._limit || 5);
+                const order = payload._order ? 1 : -1 ;
+                const response = await this._USER.find(newObj).skip(since).limit(limit).sort({updatingDate:order})
+                const count = await this._USER.countDocuments(newObj)
+                resolve({response, count});
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 
     async getOneUser(_id: Types.ObjectId): Promise<I.IUsers> {
         return new Promise(async (resolve, reject) => {
