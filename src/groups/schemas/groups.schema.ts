@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type GroupDocument = HydratedDocument<Groups>;
 
@@ -18,8 +18,8 @@ export class Groups {
   @Prop({required: false, default: null})
   img: string;
 
-  @Prop({required: true, default: []})
-  notes: string[] = [];
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Note' }], default: [] })
+  notes: Types.ObjectId[] = [];
 
   @Prop({required: false, default: Date.now})
   registerDate: Date;

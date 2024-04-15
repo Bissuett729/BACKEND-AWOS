@@ -106,4 +106,19 @@ export class GroupsService {
             }
         })
     }
+
+    async addNoteToGroup(_id: Types.ObjectId, noteId: Types.ObjectId): Promise<I.Groups> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const instance = await this._GROUPS.findById(_id);
+                if (!instance) throw new NotFoundException(`Group with ID ${_id} not found!`);
+                instance.notes.push(noteId)
+                const response = instance.save()
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-ADD-NOTE-TO-GROUP', { ok:true, data: response, msg: "Socket Success!" } );
+                resolve(response);
+            } catch (error) {
+                reject(error);
+            }
+        })
+      }
 }

@@ -129,4 +129,26 @@ export class GroupsController {
         return await this.groupsService.updatePropsGroup(_id, props)
     }
 
+    @Patch('add-note-to-group/:_id')
+    @ApiOperation({ description: 'This API is used to add a note to a group.' })
+    @ApiParam({
+        name: '_id',
+        description: 'Get ID of group',
+      })
+    @ApiBody({
+        description: 'This API is used to add a note to a group.',
+        // type: any,
+        examples: {
+            'example': {
+                value: {
+                    idNote: '661c7dbe82397fdfe179c25b'
+                }
+            }
+        }
+    })
+    @ResponseDecorator()
+    async addNoteToGroup(@Param() _id: Types.ObjectId, @Body() idNote: Types.ObjectId):Promise <I.Groups> {
+        return await this.groupsService.addNoteToGroup(_id, idNote)
+    }
+
 }

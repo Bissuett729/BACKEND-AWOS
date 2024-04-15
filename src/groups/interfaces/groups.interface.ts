@@ -12,6 +12,6 @@ export interface Groups {
   description: string;
   registerDate: Date;
   img: string;
-  notes: string[];
+  notes:Types.ObjectId[];
   active: boolean;
 };
