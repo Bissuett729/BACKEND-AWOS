@@ -4,12 +4,14 @@ import { toolcolor } from './common/global/color.tool';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: '*',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-      credentials: true,
-    },
+  const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization,X-Requested-With,Accept-Language",
+    optionsSuccessStatus: 204,
+    credentials: true,
   });
 
   const config = new DocumentBuilder()
