@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "buildCommand": "npm start",
+    "installCommand": "npm install",
+    "builds": [
+        {
+            "src": "src/main.ts",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+                "Access-Control-Allow-Headers": "Content-Type,Authorization,X-Requested-With,Accept-Language",
+                "Access-Control-Allow-Credentials": "true"
+            },
+            "dest": "src/main.ts",
+            "methods": [
+                "GET",
+                "HEAD",
+                "PUT",
+                "PATCH",
+                "POST",
+                "DELETE"
+            ]
+        }
+    ]
+}
