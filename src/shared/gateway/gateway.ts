@@ -18,12 +18,11 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @WebSocketServer() server: Server;
     private logger: Logger = new Logger('EventsGateway');
 
-    afterInit(server: Server) {
+    afterInit() {
         this.logger.log('Initialized!');
     }
 
-    handleConnection(client: Socket, ...args: any[]) {
-        console.log("//////////////////////////////////////////////////");
+    handleConnection(client: Socket) {
         this.logger.log(`Client connected: ${client.id}`);
     }
 
@@ -32,7 +31,6 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     }
 
     emitEvent(eventName: string, data: any): void {
-        console.log("//////////////////////////////////////////////////");
         this.server.emit(eventName, data);
     }
 }

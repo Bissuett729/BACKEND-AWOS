@@ -27,7 +27,6 @@ export class GroupsService {
                 if (instance) throw new NotFoundException('Group already exists!');
                 const newGroup = new this._GROUPS(payload);
                 newGroup.code = this.generateRandomCode(8)
-                console.log(newGroup.code);
                 const response = await newGroup.save();
                 this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-CREATE-NEW-GROUP', { ok:true, data: response, msg: "Socket Success!" } );
                 resolve(response);
@@ -120,5 +119,5 @@ export class GroupsService {
                 reject(error);
             }
         })
-      }
+    }
 }

@@ -83,7 +83,6 @@ export class UsersService {
             }
         });
     }
-
     async updateUserActiveStatus(_id: Types.ObjectId, payload: DTO.activeDTO): Promise<I.IUsers> {
         return new Promise(async (resolve, reject) => {
             try {
@@ -92,6 +91,21 @@ export class UsersService {
                 instance.active = payload._active;
                 this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-DEACTIVE-OR-ACTIVE-USER', { ok:true, data: instance, msg: "Socket Success!" } );
                 resolve(instance.save());
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    async addGrouptoUser(_id: Types.ObjectId, IDGroup: Types.ObjectId): Promise<I.IUsers> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const instance = await this._USER.findById(_id);
+                if (!instance) throw new NotFoundException(`User with ID ${_id} not found!`);
+                instance.groups.push(IDGroup)
+                const response = instance.save()
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-ADD-GROUP-TO-USER', { ok:true, data: response, msg: "Socket Success!" } );
+                resolve(response);
             } catch (error) {
                 reject(error);
             }

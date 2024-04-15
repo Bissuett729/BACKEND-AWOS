@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type UserDocument = HydratedDocument<Users>;
 
@@ -21,8 +21,8 @@ export class Users {
   @Prop({required: true})
   password: string;
   
-  @Prop({required: false, default: []})
-  groups: string[] = [];
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Groups' }], default: [] })
+  groups: Types.ObjectId[] = [];
 
   @Prop({required: false, default: null})
   imgProfile: string = '';

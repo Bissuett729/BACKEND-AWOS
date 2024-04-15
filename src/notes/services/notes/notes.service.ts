@@ -99,7 +99,6 @@ export class NotesService {
             try {
                 const instance = await this._NOTES.findById(_id);
                 if (!instance) throw new NotFoundException(`Note with ID ${_id} not found!`);
-                console.log(payload);
                 const newComment = {...payload, registerDay: new Date().toISOString()}
                 instance.comments.push(newComment)
                 this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-CREATE-NEW-COMMENT', { ok:true, data: instance, msg: "Socket Success!" } );

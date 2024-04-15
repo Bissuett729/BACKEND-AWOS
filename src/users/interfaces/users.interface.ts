@@ -12,7 +12,7 @@ export interface IUsers {
   email: string;
   registerDate: Date;
   password: string;
-  groups: string[];
+  groups: Types.ObjectId[];
   imgProfile: string;
   phone: string;
   active: boolean;

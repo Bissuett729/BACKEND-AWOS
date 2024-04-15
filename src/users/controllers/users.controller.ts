@@ -130,4 +130,26 @@ export class UsersController {
     async updatePropsUser(@Param() _id: Types.ObjectId, @Body() props: Record<string, any>) {
         return await this.UserService.updatePropsUser(_id, props)
     }
+
+    @Patch('add-group-to-user/:_id')
+    @ApiOperation({ description: 'This API is used to add a group to a user.' })
+    @ApiParam({
+        name: '_id',
+        description: 'Get ID of group',
+      })
+    @ApiBody({
+        description: 'This API is used to add a group to a user.',
+        // type: any,
+        examples: {
+            'example': {
+                value: {
+                    idGroup: '661c7dbe82397fdfe179c25b'
+                }
+            }
+        }
+    })
+    @ResponseDecorator()
+    async addNoteToGroup(@Param() _id: Types.ObjectId, @Body() IDGroup: Types.ObjectId):Promise <I.IUsers> {
+        return await this.UserService.addGrouptoUser(_id, IDGroup)
+    }
 }
