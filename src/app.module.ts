@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { config } from 'dotenv';
 import { GroupsModule } from './groups/groups.module';
 import { NotesModule } from './notes/notes.module';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
 
 config();
 
@@ -13,7 +15,9 @@ config();
         UsersModule,
         GroupsModule,
         NotesModule
-    ]
+    ],
+    controllers: [AppController],
+    providers: [AppService]
 })
 
 
