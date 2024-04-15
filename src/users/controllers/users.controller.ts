@@ -13,6 +13,11 @@ import * as I from '../interfaces/index'
 export class UsersController {
     constructor(private UserService: UsersService) { }
 
+    @Get()
+    getStatusBackend() {
+        return 'Server ON'
+    }
+
 
     @Get('get-all-users/:_order/:_since/:_limit/:_active/:_search')
     @ApiParam( { 
