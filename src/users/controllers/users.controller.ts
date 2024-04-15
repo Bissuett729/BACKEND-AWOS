@@ -14,7 +14,7 @@ export class UsersController {
     constructor(private UserService: UsersService) { }
 
 
-    @Get('v1/getallcustomer/:_order/:_since/:_limit/:_active/:_search')
+    @Get('get-all-users/:_order/:_since/:_limit/:_active/:_search')
     @ApiParam( { 
         name:'_order', 
         type: Boolean, 
@@ -52,16 +52,9 @@ export class UsersController {
     } )
     @UseInterceptors(Interceptor.getParamInterceptor)
     @ResponseDecorator()
-    async findallNotes( @Param() param ):Promise <I.IResponseUsers>{
+    async findAllUsers( @Param() param ):Promise <I.IResponseUsers>{
         return await this.UserService.getAllUsers(param);
     }
-
-
-
-
-
-
-
 
 
     @Get('get-one-user/:_id')
@@ -75,8 +68,8 @@ export class UsersController {
         return await this.UserService.getOneUser(_id)
     }
 
-    @Post('createNewUser')
-    @ApiOperation({ description: 'create a new user' })
+    @Post('create-new-user')
+    @ApiOperation({ description: 'This API is used to create a new user' })
     @ApiBody({
         description: 'Name of the user',
         type: CreateUserDto,
@@ -95,7 +88,7 @@ export class UsersController {
         return await this.UserService.createNewUser(CreateUser)
     }
 
-    @Patch('update_active-user-by-id/:_id')
+    @Patch('update-active-user-by-id/:_id')
     @ApiOperation({ description: 'Delete a user' })
     @ApiParam({
         name: '_id',
@@ -117,7 +110,7 @@ export class UsersController {
         return await this.UserService.updateUserActiveStatus(_id, activeUser)
     }
 
-    @Patch('update_props_user/:_id')
+    @Patch('update-props-user/:_id')
     @ApiOperation({ description: 'Update props a user' })
     @ApiParam({
         name: '_id',

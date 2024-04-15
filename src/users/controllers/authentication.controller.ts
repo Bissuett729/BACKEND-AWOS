@@ -24,6 +24,6 @@ export class AuthController {
     })
     @ResponseDecorator()
     async getOneUser(@Body() login: DTO.LoginDTO) {
-        return await this.authService.login(login)
+        return await this.authService.createToken(login)
     }
 }

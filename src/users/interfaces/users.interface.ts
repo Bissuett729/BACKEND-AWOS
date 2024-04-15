@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export interface IResponseUsers {
-  response: IUsers,
+  response: IUsers[],
   count: number
 }
 

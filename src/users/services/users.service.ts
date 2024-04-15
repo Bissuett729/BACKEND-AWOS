@@ -20,8 +20,7 @@ export class UsersService {
                 payload.password= hashedPassword
                 const newUser = new this._USER(payload);
                 const response = await newUser.save();
-                // const count = await this._USER.collection.countDocuments()
-                this._appGateway.emitEvent( 'FACTORYEXPRESS-WORKFLOW-Category-newCategory', { ok:true, data: response, msg: "Socket Success!" } );
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-CREATE-NEW-USER', { ok:true, data: response, msg: "Socket Success!" } );
                 resolve(response);
             } catch (error) {
                 reject(error);
@@ -45,6 +44,7 @@ export class UsersService {
                 const order = payload._order ? 1 : -1 ;
                 const response = await this._USER.find(newObj).skip(since).limit(limit).sort({updatingDate:order})
                 const count = await this._USER.countDocuments(newObj)
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-GET-ALL-USERS', { ok:true, data: response, msg: "Socket Success!" } );
                 resolve({response, count});
             } catch (error) {
                 reject(error);
@@ -57,6 +57,7 @@ export class UsersService {
             try {
                 const instance = await this._USER.findById(_id);
                 if (!instance) throw new NotFoundException(`User not found!`);
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-GET-ONE-USER', { ok:true, data: instance, msg: "Socket Success!" } );
                 resolve(instance)
             } catch (error) {
                 reject(error);
@@ -75,6 +76,7 @@ export class UsersService {
                     }
                 }
                 const response = await instance.save();
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-UPDATE-ONE-PROPERTY', { ok:true, data: response, msg: "Socket Success!" } );
                 resolve(response);
             } catch (error) {
                 reject(error);
@@ -88,6 +90,7 @@ export class UsersService {
                 const instance = await this._USER.findById(_id);
                 if (!instance) throw new NotFoundException(`User with ID ${_id} not found!`);
                 instance.active = payload._active;
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-DEACTIVE-OR-ACTIVE-USER', { ok:true, data: instance, msg: "Socket Success!" } );
                 resolve(instance.save());
             } catch (error) {
                 reject(error);
