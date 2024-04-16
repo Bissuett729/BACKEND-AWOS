@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ResponseDecorator } from 'src/common/decorators/response.decorator';
 import * as Interceptor from '../../common/interceptors/index'
@@ -149,6 +149,17 @@ export class GroupsController {
     @ResponseDecorator()
     async addNoteToGroup(@Param() _id: Types.ObjectId, @Body() idNote: Types.ObjectId):Promise <I.Groups> {
         return await this.groupsService.addNoteToGroup(_id, idNote)
+    }
+
+    @Delete('delete-group/:_id')
+    @ApiOperation({ description: 'This API is used to delete a group.' })
+    @ApiParam({
+        name: '_id',
+        description: 'Get ID of group',
+      })
+    @ResponseDecorator()
+    async deleteGroup(@Param() _id: Types.ObjectId):Promise <any> {
+        return await this.groupsService.deleteGroup(_id)
     }
 
 }

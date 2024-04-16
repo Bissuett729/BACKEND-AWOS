@@ -106,6 +106,20 @@ export class GroupsService {
         })
     }
 
+    async deleteGroup(_id: Types.ObjectId): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const instance = await this._GROUPS.findById(_id);
+                if (!instance) throw new NotFoundException(`Group with ID ${_id} not found!`);
+                await this._GROUPS.findByIdAndDelete(_id)
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-DELETE-GROUP', { ok:true, data: instance, msg: "Socket Success!" } );
+                resolve('Ok');
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     async addNoteToGroup(_id: Types.ObjectId, noteId: Types.ObjectId): Promise<I.Groups> {
         return new Promise(async (resolve, reject) => {
             try {
