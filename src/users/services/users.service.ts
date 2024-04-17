@@ -52,6 +52,21 @@ export class UsersService {
         });
     }
 
+    async getAllUsersInGroup(idGroup: string): Promise<any> {
+        return new Promise(async(resolve, reject) => {
+            try {
+                const newObj = { "groups.idGroup": idGroup };
+                const response = await this._USER.find(newObj)
+                const count = await this._USER.countDocuments(newObj);
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-GET-ALL-USERS-ON-GROUP', {ok: true,data: response,msg: "Socket Success!"});
+                resolve({ response, count });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+    
+
     async getOneUser(_id: Types.ObjectId): Promise<I.IUsers> {
         return new Promise(async (resolve, reject) => {
             try {

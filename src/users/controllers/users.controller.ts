@@ -61,6 +61,20 @@ export class UsersController {
         return await this.UserService.getAllUsers(param);
     }
 
+    @Get('get-all-users-on-group/:idGroup')
+    @ApiParam( { 
+        name:'idGroup', 
+        type: String, 
+        description:'It will search for specific matches according to the written text.', 
+        example: '',
+        required: true 
+    } )
+    @UseInterceptors(Interceptor.getParamInterceptor)
+    @ResponseDecorator()
+    async findAllUsersOnGroup( @Param('idGroup') idGroup: string ):Promise <I.IResponseUsers>{
+        return await this.UserService.getAllUsersInGroup(idGroup);
+    }
+
 
     @Get('get-one-user/:_id')
     @ApiOperation({ description: 'Get a user' })

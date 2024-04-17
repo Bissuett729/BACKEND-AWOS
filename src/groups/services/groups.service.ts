@@ -60,6 +60,18 @@ export class GroupsService {
         });
     }
 
+    async getAllGroupByCode(payload):Promise<I.Groups>{
+        return new Promise(async(resolve, reject)=>{
+            try {
+                const response = await this._GROUPS.findOne({code:payload.code})
+                this._appGateway.emitEvent('SOCKET-ACADEMICLOUD-GET-GROUP-BY-CODE', { ok:true, data: response, msg: "Socket Success!" } );
+                resolve(response);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
     async getOneGroup(_id: Types.ObjectId): Promise<I.Groups> {
         return new Promise(async (resolve, reject) => {
             try {

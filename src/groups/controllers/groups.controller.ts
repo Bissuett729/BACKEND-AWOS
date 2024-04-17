@@ -56,6 +56,20 @@ export class GroupsController {
         return await this.groupsService.getAllGroups(param);
     }
 
+    @Get('get-group-by-code/:code')
+    @ApiParam( { 
+        name:'code', 
+        type: String, 
+        description:'It will search for specific matches according to the written text.', 
+        example: '743HD263VF',
+        required: true 
+    } )
+    @UseInterceptors(Interceptor.getParamInterceptor)
+    @ResponseDecorator()
+    async findGroupByCode( @Param() param ):Promise <I.Groups>{
+        return await this.groupsService.getAllGroupByCode(param);
+    }
+
     @Get('get-one-group/:_id')
     @ApiOperation({ description: 'Get a group' })
     @ApiParam({
