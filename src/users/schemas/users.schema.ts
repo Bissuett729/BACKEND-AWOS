@@ -30,6 +30,9 @@ export class Users {
   @Prop({required: false, default: null})
   phone: string = '';
 
+  @Prop({required: false, default: null})
+  color: string = '';
+
   @Prop({required: false, default: true})
   active: boolean = true;
 

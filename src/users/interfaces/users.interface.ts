@@ -15,5 +15,6 @@ export interface IUsers {
   groups: Types.ObjectId[];
   imgProfile: string;
   phone: string;
+  color: string;
   active: boolean;
 };

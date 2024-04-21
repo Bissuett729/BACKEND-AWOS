@@ -97,7 +97,8 @@ export class UsersController {
                 value: {
                     name: "Miguel Bissuett",
                     email: "miguelangel.292020@gmail.com",
-                    password: "P@ssw0rd123!"
+                    password: "P@ssw0rd123!",
+                    color: "#FFF"
                 }
             }
         }

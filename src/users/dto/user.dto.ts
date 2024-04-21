@@ -29,4 +29,13 @@ export class CreateUserDto {
     example: ['Admin123'],
   })
   password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: `A color`,
+    type: String,
+    example: ['Admin123'],
+  })
+  color: string;
 }

@@ -14,7 +14,7 @@ export class UsersService {
     async createNewUser(payload: DTO.CreateUserDto): Promise<I.IUsers> {
         return new Promise(async (resolve, reject) => {
             try {
-                const instance = await this._USER.findOne({'name': payload.name});
+                const instance = await this._USER.findOne({'email': payload.email});
                 if (instance) throw new NotFoundException('User already exists!');
                 const hashedPassword = await bcrypt.hash(payload.password, 10);
                 payload.password= hashedPassword
